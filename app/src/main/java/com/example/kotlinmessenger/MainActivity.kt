@@ -44,13 +44,14 @@ class MainActivity : AppCompatActivity() {
         //Firebase authentication to create a user with email and password
         FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener {
-                if (it.isSuccessful) return@addOnCompleteListener
+                if (!it.isSuccessful) return@addOnCompleteListener
 
                 //else if successful
                 Log.d("Main", "Successfully created user with uid: ${it.result?.user?.uid}")
             }
             .addOnFailureListener {
                 Log.d("Main", "Failed to created user with uid: ${it.message}")
+                Toast.makeText(this, "Failed to created user with uid:", Toast.LENGTH_SHORT).show()
             }
 
 
