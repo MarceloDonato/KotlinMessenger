@@ -15,25 +15,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         register_button_register.setOnClickListener {
-            val email = email_edittext_register.text.toString()
-            val password = password_edittext_register.text.toString()
+            performRegister()
 
-            if (email.isEmpty() || password.isEmpty()) {
-                Toast.makeText(this, "please enter text in emailpasswor", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-
-            Log.d("MainActivity", "Email is " + email)
-            Log.d("MainActivity", "Password: $password")
-
-            //firebase authentication to create a user with email and password
-            FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener {
-                  if (it.isSuccessful) return@addOnCompleteListener
-
-                    //else if successful
-                    Log.d("Main", "Successfully created user with uid: ${it.result.user.uid}")
-                }
         }
 
         already_have_an_account_text_View.setOnClickListener {
@@ -44,6 +27,32 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
 
         }
+    }
+
+    private fun performRegister(){
+        val email = email_edittext_register.text.toString()
+        val password = password_edittext_register.text.toString()
+
+        if (email.isEmpty() || password.isEmpty()) {
+            Toast.makeText(this, "please enter text in emailpasswor", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        Log.d("MainActivity", "Email is " + email)
+        Log.d("MainActivity", "Password: $password")
+
+        //firebase authentication to create a user with email and password
+        FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener {
+                if (it.isSuccessful) return@addOnCompleteListener
+
+                //else if successful
+                Log.d("Main", "Successfully created user with uid: ${it.result?.user?.uid}")
+            }
+            .addOnFailureListener{
+                Log.d("Main", "Failed to created user with uid: ${it.message}")
+            }
+
 
     }
 }
