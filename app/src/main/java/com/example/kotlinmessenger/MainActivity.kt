@@ -29,19 +29,19 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun performRegister(){
+    private fun performRegister() {
         val email = email_edittext_register.text.toString()
         val password = password_edittext_register.text.toString()
 
         if (email.isEmpty() || password.isEmpty()) {
-            Toast.makeText(this, "please enter text in emailpasswor", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "please enter text in email/password", Toast.LENGTH_SHORT).show()
             return
         }
 
-        Log.d("MainActivity", "Email is " + email)
+        Log.d("MainActivity", "Email is $email")
         Log.d("MainActivity", "Password: $password")
 
-        //firebase authentication to create a user with email and password
+        //Firebase authentication to create a user with email and password
         FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener {
                 if (it.isSuccessful) return@addOnCompleteListener
@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity() {
                 //else if successful
                 Log.d("Main", "Successfully created user with uid: ${it.result?.user?.uid}")
             }
-            .addOnFailureListener{
+            .addOnFailureListener {
                 Log.d("Main", "Failed to created user with uid: ${it.message}")
             }
 
