@@ -1,10 +1,11 @@
-package com.example.kotlinmessenger
+package com.example.kotlinmessenger.messages
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import com.example.kotlinmessenger.R
+import com.example.kotlinmessenger.registerlogin.User
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -49,9 +50,21 @@ class NewMessageActivity : AppCompatActivity() {
                     Log.d("NewMassage", it.toString())
                     val user = it.getValue(User::class.java)
                     if (user != null) {
-                        adapter.add(UserItem(user))
+                        adapter.add(
+                            UserItem(
+                                user
+                            )
+                        )
                     }
                 }
+
+               adapter.setOnItemClickListener { item, view ->
+                   val intent = Intent(view.context, ChatLogActivity::class.java)
+                   startActivity(intent)
+
+                   finish()
+               }
+
                 recyleview_newmassage.adapter = adapter
             }
             override fun onCancelled(p0: DatabaseError) {
