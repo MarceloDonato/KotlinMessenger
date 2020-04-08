@@ -7,6 +7,9 @@ import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.Item
 import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.activity_chat_log.*
+import kotlinx.android.synthetic.main.chat_from_row.view.*
+import kotlinx.android.synthetic.main.chat_from_row.view.textView2
+import kotlinx.android.synthetic.main.chat_to_row.view.*
 
 class ChatLogActivity : AppCompatActivity() {
 
@@ -14,41 +17,52 @@ class ChatLogActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat_log)
 
-        supportActionBar?.title = "Chat Log"
 
+       val username = intent.getStringExtra(NewMessageActivity.USER_KEY)
+       supportActionBar?.title = username
+
+       //val user = intent = intent.getParcelableExtra<User>(NewMessageActivity.USER_KEY)
+        //supportActionBar?.title = user.uid
+
+       setupDummyData()
+
+    }
+
+    private fun setupDummyData() {
         val adapter = GroupAdapter<ViewHolder>()
 
-        adapter.add(ChatFromItem())
-        adapter.add(ChatToItem())
-        adapter.add(ChatFromItem())
-        adapter.add(ChatToItem())
+        adapter.add(ChatFromItem("FROM MESSSSSSSAAAAGEEE"))
+        adapter.add(ChatToItem("TO MESSSSSSAAAAGEEE\nTOMESSAGE"))
+        adapter.add(ChatFromItem("FROM MESSSSSSSAAAAGEEE"))
+        adapter.add(ChatToItem("TO MESSSSSSAAAAGEEE\nTOMESSAGE"))
+        adapter.add(ChatFromItem("FROM MESSSSSSSAAAAGEEE"))
+        adapter.add(ChatToItem("TO MESSSSSSAAAAGEEE\nTOMESSAGE"))
+        adapter.add(ChatFromItem("FROM MESSSSSSSAAAAGEEE"))
+        adapter.add(ChatToItem("TO MESSSSSSAAAAGEEE\nTOMESSAGE"))
+        adapter.add(ChatFromItem("FROM MESSSSSSSAAAAGEEE"))
+        adapter.add(ChatToItem("TO MESSSSSSAAAAGEEE\nTOMESSAGE"))
+
 
         recycleview_chat_log.adapter = adapter
-
-
     }
 }
 
-class ChatFromItem: Item<ViewHolder>(){
+class ChatFromItem (val text: String): Item<ViewHolder>(){
     override fun bind(viewHolder: ViewHolder, position: Int) {
-
-
+        viewHolder.itemView.textView2.text = text
     }
 
     override fun getLayout(): Int {
         return R.layout.chat_from_row
-
     }
 }
 
-class ChatToItem: Item<ViewHolder>(){
+class ChatToItem(val text: String): Item<ViewHolder>(){
     override fun bind(viewHolder: ViewHolder, position: Int) {
-
-
+        viewHolder.itemView.textView2.text = text
     }
 
     override fun getLayout(): Int {
         return R.layout.chat_to_row
-
     }
 }

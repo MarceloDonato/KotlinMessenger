@@ -26,16 +26,22 @@ class NewMessageActivity : AppCompatActivity() {
 
         supportActionBar?.title = "Select User"
 
-  //      val adapter = GroupAdapter<ViewHolder>()
+        //      val adapter = GroupAdapter<ViewHolder>()
 //
 //
-         // adapter.add(UserItem())
-         // adapter.add(UserItem())
+        // adapter.add(UserItem())
+        // adapter.add(UserItem())
         //  adapter.add(UserItem())
-   //
-  //      recyleview_newmassage.adapter = adapter
+        //
+        //      recyleview_newmassage.adapter = adapter
 
         fetchUsers()
+    }
+
+    companion object {
+
+        val USER_KEY = "USER_KEY"
+
     }
 
     private fun fetchUsers() {
@@ -50,23 +56,25 @@ class NewMessageActivity : AppCompatActivity() {
                     Log.d("NewMassage", it.toString())
                     val user = it.getValue(User::class.java)
                     if (user != null) {
-                        adapter.add(
-                            UserItem(
-                                user
-                            )
-                        )
+                        adapter.add(UserItem(user))
                     }
                 }
 
-               adapter.setOnItemClickListener { item, view ->
-                   val intent = Intent(view.context, ChatLogActivity::class.java)
-                   startActivity(intent)
+                adapter.setOnItemClickListener { item, view ->
 
-                   finish()
-               }
+                    val userItem = item as UserItem
+
+                    val intent = Intent(view.context, ChatLogActivity::class.java)
+                     intent.putExtra(USER_KEY, userItem.user.username)
+                 //   intent.putExtra(USER_KEY, userItem.user)
+                    startActivity(intent)
+
+                    finish()
+                }
 
                 recyleview_newmassage.adapter = adapter
             }
+
             override fun onCancelled(p0: DatabaseError) {
 
             }
@@ -76,7 +84,7 @@ class NewMessageActivity : AppCompatActivity() {
 
 class UserItem(val user: User) : Item<ViewHolder>() {
     override fun bind(viewHolder: ViewHolder, position: Int) {
-       viewHolder.itemView.username_textview_new_message.text = user.username
+        viewHolder.itemView.username_textview_new_message.text = user.username
 
         Picasso.get().load(user.profileImageUrl).into(viewHolder.itemView.imageview_new_message)
     }
