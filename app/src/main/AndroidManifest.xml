@@ -33,7 +33,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".messages.LatesMessagesActivity" />
         </activity>
-        <activity android:name=".messages.ChatLogActivity"><meta-data
+        <activity android:name=".messages.ChatLogActivity">
+            <meta-data
             android:name="android.support.PARENT_ACTIVITY"
             android:value=".messages.LatesMessagesActivity" /></activity>
     </application>

@@ -2,7 +2,11 @@ package com.example.kotlinmessenger.messages
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import com.example.kotlinmessenger.R
+import com.example.kotlinmessenger.models.User
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.Item
 import com.xwray.groupie.ViewHolder
@@ -12,6 +16,10 @@ import kotlinx.android.synthetic.main.chat_from_row.view.textView2
 import kotlinx.android.synthetic.main.chat_to_row.view.*
 
 class ChatLogActivity : AppCompatActivity() {
+
+    companion object {
+        val TAG = "Chat Log"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,6 +34,30 @@ class ChatLogActivity : AppCompatActivity() {
 
        setupDummyData()
 
+        send_button_chat_log.setOnClickListener{
+            Log.d(TAG, "Attempt to send message.....")
+            performSendeMeessage()
+        }
+    }
+
+    class chatMessage(val id: String, val text: String, val fromId: String, val toId: String,
+    timestamp: Long)
+
+    private fun performSendeMeessage(){
+        // how dowe actually send a message to firebase
+        val text = edittext_chat_log.text.toString()
+
+        val fromId =  FirebaseAuth.getInstance().uid
+        val user = intent = intent.getParcelableExtra<User>(NewMessageActivity.USER_KEY)
+       val toId = user.uid
+
+        val reference = FirebaseDatabase.getInstance().getReference("/messages").push()
+
+        val chatMessage = chatMessage(reference.key!!, text, fromId!!,toId )
+        reference.setValue(chatMessage)
+            .addOnSuccessListener {
+                Log.d(TAG, "saved or message: ${reference.key}")
+            }
     }
 
     private fun setupDummyData() {
