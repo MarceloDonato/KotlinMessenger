@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import com.example.kotlinmessenger.R
-import com.example.kotlinmessenger.registerlogin.User
+import com.example.kotlinmessenger.models.User
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -65,8 +65,8 @@ class NewMessageActivity : AppCompatActivity() {
                     val userItem = item as UserItem
 
                     val intent = Intent(view.context, ChatLogActivity::class.java)
-                  //  intent.putExtra(USER_KEY, userItem.user.username)
-                   intent.putExtra(USER_KEY, userItem.user)
+                    //intent.putExtra(USER_KEY, userItem.user.username)
+                    intent.putExtra(USER_KEY, userItem.user)
                     startActivity(intent)
 
                     finish()
@@ -93,6 +93,4 @@ class UserItem(val user: User) : Item<ViewHolder>() {
         return R.layout.user_row_new_message
     }
 }
-
-
 

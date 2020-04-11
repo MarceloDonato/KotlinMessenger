@@ -11,9 +11,8 @@ import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.Item
 import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.activity_chat_log.*
-import kotlinx.android.synthetic.main.chat_from_row.view.*
 import kotlinx.android.synthetic.main.chat_from_row.view.textView2
-import kotlinx.android.synthetic.main.chat_to_row.view.*
+
 
 class ChatLogActivity : AppCompatActivity() {
 
@@ -26,11 +25,11 @@ class ChatLogActivity : AppCompatActivity() {
         setContentView(R.layout.activity_chat_log)
 
 
-       val username = intent.getStringExtra(NewMessageActivity.USER_KEY)
-       supportActionBar?.title = username
+       //val username = intent.getStringExtra(NewMessageActivity.USER_KEY)
+       //supportActionBar?.title = username
 
-       //val user = intent = intent.getParcelableExtra<User>(NewMessageActivity.USER_KEY)
-        //supportActionBar?.title = user.uid
+       val user = intent.getParcelableExtra<User>(NewMessageActivity.USER_KEY)
+        supportActionBar?.title = user.username
 
        setupDummyData()
 
@@ -48,12 +47,13 @@ class ChatLogActivity : AppCompatActivity() {
         val text = edittext_chat_log.text.toString()
 
         val fromId =  FirebaseAuth.getInstance().uid
-        val user = intent = intent.getParcelableExtra<User>(NewMessageActivity.USER_KEY)
+        val user = intent.getParcelableExtra<User>(NewMessageActivity.USER_KEY)
        val toId = user.uid
 
         val reference = FirebaseDatabase.getInstance().getReference("/messages").push()
 
-        val chatMessage = chatMessage(reference.key!!, text, fromId!!,toId )
+        val chatMessage = chatMessage(reference.key!!, text, fromId!!,toId,
+            System.currentTimeMillis() / 1000 )
         reference.setValue(chatMessage)
             .addOnSuccessListener {
                 Log.d(TAG, "saved or message: ${reference.key}")
