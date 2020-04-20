@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">KotlinMessenger</string>
+    <string name="send">Send</string>
+    <string name="enter_message">Enter Message</string>
+    <string name="this_is_my_message">This is my message</string>
+    <string name="this_is_my_message1">This is my message1</string>
+    <string name="username">username</string>
+    <string name="latest_messages">Latest Messages</string>
 </resources>
