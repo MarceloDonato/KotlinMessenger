@@ -8,21 +8,17 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.example.kotlinmessenger.R
-import com.example.kotlinmessenger.messages.NewMessageActivity.Companion.USER_KEY
 import com.example.kotlinmessenger.models.ChatMessage
 import com.example.kotlinmessenger.models.User
 import com.example.kotlinmessenger.registerlogin.RegisterActivity
 import com.example.kotlinmessenger.view.LatestMessageRow
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
-import com.squareup.picasso.Picasso
 import com.xwray.groupie.GroupAdapter
-import com.xwray.groupie.Item
 import com.xwray.groupie.ViewHolder
-import kotlinx.android.synthetic.main.activity_lates_messages.*
-import kotlinx.android.synthetic.main.latest_messages_row.view.*
+import kotlinx.android.synthetic.main.activity_latest_messages.*
 
-class LatesMessagesActivity : AppCompatActivity() {
+class LatestMessagesActivity : AppCompatActivity() {
 
     companion object {
         var currentUser: User? = null
@@ -32,7 +28,7 @@ class LatesMessagesActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_lates_messages)
+        setContentView(R.layout.activity_latest_messages)
 
         recyleview_latest_messages.adapter = adapter
         recyleview_latest_messages.addItemDecoration(DividerItemDecoration(this,
@@ -78,7 +74,7 @@ class LatesMessagesActivity : AppCompatActivity() {
             override fun onChildAdded(p0: DataSnapshot, p1: String?) {
                 val chatMessage = p0.getValue(ChatMessage::class.java) ?: return
                 latestMessagesMap[p0.key!!] = chatMessage
-                refreshRecyclerViewMessages()
+               refreshRecyclerViewMessages()
 
             }
 

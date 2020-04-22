@@ -8,7 +8,7 @@ import android.widget.Toast
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import com.example.kotlinmessenger.R
-import com.example.kotlinmessenger.messages.LatesMessagesActivity
+import com.example.kotlinmessenger.messages.LatestMessagesActivity
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_login.*
 
@@ -59,7 +59,7 @@ class LoginActivity : AppCompatActivity() {
                 if (!it.isSuccessful) return@addOnCompleteListener
                 Log.d(TAG, "Successfully logged in: ${it.result!!.user?.uid}")
 
-                val intent = Intent(this, LatesMessagesActivity::class.java)
+                val intent = Intent(this, LatestMessagesActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
                 startActivity(intent)
 

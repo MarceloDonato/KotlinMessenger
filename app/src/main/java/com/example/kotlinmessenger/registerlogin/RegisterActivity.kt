@@ -9,7 +9,7 @@ import android.provider.MediaStore
 import android.util.Log
 import android.widget.Toast
 import com.example.kotlinmessenger.R
-import com.example.kotlinmessenger.messages.LatesMessagesActivity
+import com.example.kotlinmessenger.messages.LatestMessagesActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
@@ -139,7 +139,7 @@ class RegisterActivity : AppCompatActivity() {
             .addOnSuccessListener {
                 Log.d(TAG, "Finally we saved the user to firebase database")
 
-                val intent = Intent(this, LatesMessagesActivity::class.java)
+                val intent = Intent(this, LatestMessagesActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
                 startActivity(intent)
             }
