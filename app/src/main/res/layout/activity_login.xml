@@ -8,7 +8,7 @@
     android:orientation="vertical">
 
     <EditText
-        android:id="@+id/passwor_edittext_login"
+        android:id="@+id/password_edittext_login"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginStart="32dp"
@@ -53,9 +53,9 @@
         android:text="Register"
         android:textColor="@android:color/white"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/passwor_edittext_login"
-        app:layout_constraintStart_toStartOf="@+id/passwor_edittext_login"
-        app:layout_constraintTop_toBottomOf="@+id/passwor_edittext_login" />
+        app:layout_constraintEnd_toEndOf="@+id/password_edittext_login"
+        app:layout_constraintStart_toStartOf="@+id/password_edittext_login"
+        app:layout_constraintTop_toBottomOf="@+id/password_edittext_login" />
 
     <TextView
         android:id="@+id/back_to_register_textView"

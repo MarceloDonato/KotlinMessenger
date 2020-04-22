@@ -52,9 +52,11 @@ class ChatLogActivity : AppCompatActivity() {
     }
 
     private fun listenForMessages() {
-        val fromId = FirebaseAuth.getInstance().uid
+        val fromId = FirebaseAuth.getInstance().uid ?: return
         val toId = toUser?.uid
         val ref = FirebaseDatabase.getInstance().getReference("/user-messages/$fromId/$toId")
+
+
 
         ref.addChildEventListener(object : ChildEventListener {
 
